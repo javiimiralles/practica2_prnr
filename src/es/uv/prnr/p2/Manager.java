@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "managers")
+@Table(name = "manager")
 public class Manager extends Employee{
 
 	private Long bonus;

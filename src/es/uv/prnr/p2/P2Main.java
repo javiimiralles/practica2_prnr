@@ -1,5 +1,6 @@
 package es.uv.prnr.p2;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 
@@ -35,7 +36,7 @@ public class P2Main {
 		em.remove(e);
 		em.getTransaction().commit();
 		
-		/* Ejercicio 2*
+		/* Ejercicio 2*/
 		
 		Department proyDepartment = service.getDepartmentById("d005");
 		Manager projectManager = service.promoteToManager(10001, 1000L);

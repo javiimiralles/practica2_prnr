@@ -61,7 +61,7 @@ public class ProjectService {
 	public Project createBigDataProject(String name, Department d, Manager m, BigDecimal budget) {
 		LocalDate startDate = LocalDate.now();
 		LocalDate endDate = startDate.plusYears(3);
-		Project project = new Project(name, d, m, budget, startDate, endDate, "Big Data");
+		Project project = new Project("Proyecto 1",d, m, budget, startDate,endDate, "Big Data" );
 		em.getTransaction().begin();
 		em.persist(project);
 		em.getTransaction().commit();

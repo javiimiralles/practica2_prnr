@@ -13,24 +13,24 @@ import es.uv.prnr.p2.Manager;
 
 
 //TODO JPQL de Ejercicio3 employeeInProject 
-@NamedQuery(
-			name="Project.findEmployee",
-			query = ""
-			)
+// @NamedQuery(
+// 			name="Project.findEmployee",
+// 			query = ""
+// 			)
 
 //TODO JPQL de Ejercicio3 getTopHoursMonth
-@NamedQuery(
-			name="Project.getTopMonths",
-			query=""
-)
+// @NamedQuery(
+// 			name="Project.getTopMonths",
+// 			query=""
+// )
 
 //TODO Consulta SQL para getMonthly Budget. Se recomienda encarecidamente testearla con Workbench
 //antes de incluirla aqu�
-@NamedNativeQuery(
-		name="Project.getMonthlyBudget",
-		query = "",
-		resultSetMapping = "MonthBudgetMapping"
-)
+// @NamedNativeQuery(
+// 		name="Project.getMonthlyBudget",
+// 		query = "",
+// 		resultSetMapping = "MonthBudgetMapping"
+// )
 
 //TODO Mapeo del ResultSet para la consulta anterior
 /*@SqlResultSetMapping(
@@ -45,7 +45,7 @@ import es.uv.prnr.p2.Manager;
 )*/
 
 @Entity
-@Table(name="projects")
+@Table(name="project")
 public class Project  {
 
 	@Id
