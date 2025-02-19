@@ -10,9 +10,13 @@ public class ProjectHours {
 	int hours;
 
 	//TODO Relacion * a 1 con Employee
+	@ManyToOne
+	@JoinColumn(name = "employee_id", nullable = false)
 	Employee employee;
 
 	//TODO Relacion * a 1 con Project
+	@ManyToOne
+	@JoinColumn(name = "project_id", nullable = false)
 	Project project;
 	
 	public ProjectHours() {
