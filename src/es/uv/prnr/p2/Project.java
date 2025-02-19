@@ -100,6 +100,10 @@ public class Project  {
 	 */
 	public void addEmployee(Employee e) {
 		//TODO Codigo para relacionar el empleado con el proyecto
+		if (!team.contains(e)) {
+			team.add(e);
+		}
+		
 	}
 	
 	/**
