@@ -61,8 +61,8 @@ public class Employee {
 		return 0;
 	}
 	
-	//TODO a�adir un nuevo proyecto al empleado
 	public void addProject (Project p) {
+		this.assignedTo.add(p);
 	}
 	
 

@@ -110,7 +110,9 @@ public class Project  {
 	 * @param hours
 	 */
 	public void addHours(Employee e, int month, int year, int hours) {
-		//TODO Codigo a�adir las horas del empleado
+		ProjectHours projectHours = new ProjectHours(month, year, hours, e, this);
+		this.hours.add(projectHours);
+		e.addProject(this);
 	}
 
 	public int getId() {

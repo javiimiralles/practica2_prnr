@@ -27,7 +27,7 @@ public class ProjectService {
 		return null;
 	}
 	
-	/** TODO
+	/** 
 	 * Asciende a un empleado a manager. Utilizar una estrateg�a de herencia adecuada
 	 * en employee. Tened en cuenta que NO puede haber dos entidades con el mismo id
 	 * por lo que habr� que eliminar el empleado original en algun momento.
@@ -36,10 +36,19 @@ public class ProjectService {
 	 * @return
 	 */
 	public Manager promoteToManager(int employeeId, long bonus) {
-		return null;
+		Employee employee = em.find(Employee.class, employeeId);
+		if (employee == null) {
+			return null;
+		}
+		Manager manager = new Manager(employee, bonus);
+		em.getTransaction().begin();
+		em.remove(employee);
+		em.persist(manager);
+		em.getTransaction().commit();
+		return manager;
 	}
 	
-	/** TODO
+	/** 
 	 * Crea un nuevo proyecto en el area de Big Data que comienza en la fecha actual y que finaliza
 	 * en 3 a�os.
 	 * @param name 
@@ -49,7 +58,13 @@ public class ProjectService {
 	 * @return el proyecto creado
 	 */
 	public Project createBigDataProject(String name, Department d, Manager m, BigDecimal budget) {
-		return null;
+		LocalDate startDate = LocalDate.now();
+		LocalDate endDate = startDate.plusYears(3);
+		Project project = new Project(name, d, m, budget, startDate, endDate, "Big Data");
+		em.getTransaction().begin();
+		em.persist(project);
+		em.getTransaction().commit();
+		return project;
 	}
 	
 	/**TODO
@@ -63,7 +78,7 @@ public class ProjectService {
 
 	}
 	
-	/** TODO
+	/**
 	 * Genera un conjunto de horas inicial para cada empleado. El m�todo asigna para cada
 	 * mes de duraci�n del proyecto, un n�mero entre 10-165 de horas a cada empleado.
 	 * @param projectId
@@ -71,18 +86,19 @@ public class ProjectService {
 	 */
 	public int assignInitialHours (int projectId) {
 		int totalHours = 0;
-		//TODO Buscar proyecto
-		Project p = null;
+		Project p = em.find(Project.class, projectId);
 		LocalDate start = p.getStartDate();
 		while (start.isBefore(p.getEndDate())) {
 			for (Employee e: p.getEmployees()) {
 				int hours = new Random().nextInt(165) + 10; 
 				totalHours += hours;
-				//TODO Agregar las horas del empleado al proyecto
+				p.addHours(e, start.getMonthValue(), start.getYear(), hours);
 			}
 			start = start.plusMonths(1);
 		}
-		// TODO guardar resultados	
+		em.getTransaction().begin();
+		em.persist(p);
+		em.getTransaction().commit();
 		return totalHours;
 	}
 	
