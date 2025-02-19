@@ -2,19 +2,19 @@ package es.uv.prnr.p2;
 
 import javax.persistence.*;
 
-//TODO Anotaciones JPA necesarias
+
+@Entity
+@Table(name = "project_hours")
 public class ProjectHours {
 	int id;
 	int month;
 	int year;
 	int hours;
 
-	//TODO Relacion * a 1 con Employee
 	@ManyToOne
 	@JoinColumn(name = "employee_id", nullable = false)
 	Employee employee;
 
-	//TODO Relacion * a 1 con Project
 	@ManyToOne
 	@JoinColumn(name = "project_id", nullable = false)
 	Project project;
