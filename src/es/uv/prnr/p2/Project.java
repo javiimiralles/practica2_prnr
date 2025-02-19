@@ -44,14 +44,16 @@ import es.uv.prnr.p2.Manager;
 	}
 )*/
 
-//TODO Anotaciones JPA necesarias
+@Entity
+@Table(name="projects")
 public class Project  {
 
 	private int id;
 	
 	private String name;
 	
-	//TODO Relaci�n * a 1 con Department
+	@ManyToOne
+	@JoinColumn(name = "dept_no", nullable = false)
 	private Department department;
 	
 	private BigDecimal budget;
@@ -62,13 +64,19 @@ public class Project  {
 
 	private String area;
 	
-	//TODO Relacion * a 1 con Project
+	@ManyToOne
+	@JoinColumn(name = "manager_id", nullable = false)
 	private Manager manager;
 	
-	//TODO relacion * a * utilizando una tabla intermedia
-	private List<Employee> team = new ArrayList();
-	
-	//TODO Relacion 1 a * con la clase ProjectHours
+	@ManyToMany
+	@JoinTable(
+		name = "project_employee",
+		joinColumns = @JoinColumn(name = "project_id"),
+		inverseJoinColumns = @JoinColumn(name = "employee_id")
+	)
+	private List<Employee> team = new ArrayList<>();
+
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ProjectHours> hours = new ArrayList<ProjectHours>();
 	
 	

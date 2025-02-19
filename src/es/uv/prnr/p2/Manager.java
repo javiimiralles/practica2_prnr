@@ -8,7 +8,6 @@ import javax.persistence.Table;
 @Table(name = "managers")
 public class Manager extends Employee{
 
-	@Column(name = "bonus")
 	private Long bonus;
 
 	public Manager() {

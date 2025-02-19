@@ -38,11 +38,7 @@ public class Employee {
 	@JoinColumn( name="emp_no", referencedColumnName="emp_no", updatable = false)
 	private List<Salary> salaries = new ArrayList<>();
 	
-	//TODO Relacion bidireccional con Project
-	@ManyToMany
-	@JoinTable(name = "project_employee",
-				joinColumns = @JoinColumn(name = "emp_no"),
-				inverseJoinColumns = @JoinColumn(name = "project_no"))
+	@ManyToMany(mappedBy = "team")
 	private List<Project> assignedTo = new ArrayList<>();
 
 	public Employee(){
