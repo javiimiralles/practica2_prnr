@@ -6,9 +6,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "project_hours")
 public class ProjectHours {
+
+	@Id
 	int id;
+
 	int month;
+	
 	int year;
+
 	int hours;
 
 	@ManyToOne

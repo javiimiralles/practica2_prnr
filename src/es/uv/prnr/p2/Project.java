@@ -48,6 +48,7 @@ import es.uv.prnr.p2.Manager;
 @Table(name="projects")
 public class Project  {
 
+	@Id
 	private int id;
 	
 	private String name;
