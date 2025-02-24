@@ -54,26 +54,28 @@ public class Project  {
 	private String name;
 	
 	@ManyToOne
-	@JoinColumn(name = "dept_no", nullable = false)
+	@JoinColumn(name = "fk_department", referencedColumnName = "dept_no", nullable = false)
 	private Department department;
 	
 	private BigDecimal budget;
 	
+	@Column(name = "start_date")
 	private LocalDate startDate;
 	
+	@Column(name = "end_date")
 	private LocalDate endDate;
 
 	private String area;
 	
 	@ManyToOne
-	@JoinColumn(name = "manager_id", nullable = false)
+	@JoinColumn(name = "fk_manager", referencedColumnName = "emp_no", nullable = false)
 	private Manager manager;
 	
 	@ManyToMany
 	@JoinTable(
-		name = "project_employee",
-		joinColumns = @JoinColumn(name = "project_id"),
-		inverseJoinColumns = @JoinColumn(name = "employee_id")
+		name = "project_team",
+		joinColumns = @JoinColumn(name = "project_id", referencedColumnName = "id"),
+		inverseJoinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "emp_no")
 	)
 	private List<Employee> team = new ArrayList<>();
 
@@ -99,11 +101,10 @@ public class Project  {
 	 * @param e
 	 */
 	public void addEmployee(Employee e) {
-		//TODO Codigo para relacionar el empleado con el proyecto
 		if (!team.contains(e)) {
 			team.add(e);
+			e.addProject(this);
 		}
-		
 	}
 	
 	/**

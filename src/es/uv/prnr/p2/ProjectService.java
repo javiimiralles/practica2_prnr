@@ -37,12 +37,9 @@ public class ProjectService {
 	 * @return
 	 */
 	public Manager promoteToManager(int employeeId, long bonus) {
-		Employee employee = em.find(Employee.class, employeeId);
-		if (employee == null) {
-			return null;
-		}
-		Manager manager = new Manager(employee, bonus);
 		em.getTransaction().begin();
+		Employee employee = em.find(Employee.class, employeeId);
+		Manager manager = new Manager(employee, bonus);
 		em.remove(employee);
 		em.persist(manager);
 		em.getTransaction().commit();
@@ -61,7 +58,7 @@ public class ProjectService {
 	public Project createBigDataProject(String name, Department d, Manager m, BigDecimal budget) {
 		LocalDate startDate = LocalDate.now();
 		LocalDate endDate = startDate.plusYears(3);
-		Project project = new Project("Proyecto 1",d, m, budget, startDate,endDate, "Big Data" );
+		Project project = new Project(name ,d, m, budget, startDate,endDate, "Big Data" );
 		em.getTransaction().begin();
 		em.persist(project);
 		em.getTransaction().commit();
@@ -76,16 +73,15 @@ public class ProjectService {
 	 * @param endId identificador final de empleados. Se asume que start id < endId
 	 */
 	public void assignTeam (Project p, int startId, int endId) {
-	for (int i = startId; i <= endId; i++) {
-		Employee e = em.find(Employee.class, i);
-		if (e != null) {
-			p.addEmployee(e);
+		for (int i = startId; i <= endId; i++) {
+			Employee e = em.find(Employee.class, i);
+			if (e != null) {
+				p.addEmployee(e);
+			}
 		}
-	}
-	em.getTransaction().begin();
-	em.merge(p);
-	em.getTransaction().commit();
-
+		em.getTransaction().begin();
+		em.merge(p);
+		em.getTransaction().commit();
 	}
 	
 	/**

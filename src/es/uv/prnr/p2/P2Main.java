@@ -39,11 +39,10 @@ public class P2Main {
 		/* Ejercicio 2*/
 		
 		Department proyDepartment = service.getDepartmentById("d005");
-		Manager projectManager = service.promoteToManager(10001, 1000L);
-		Project acmeProject = 
-				service.createBigDataProject("Persistence Layer",proyDepartment,projectManager,new BigDecimal(1500000.99));
+		Manager projectManager = service.promoteToManager(10005, 1000L);
+		Project acmeProject = service.createBigDataProject("Persistence Layer",proyDepartment,projectManager,new BigDecimal(1500000.99));
 		
-		service.assignTeam(acmeProject,10001,10005);
+		service.assignTeam(acmeProject,10010,10015);
 
 		int totalHours = service.assignInitialHours(acmeProject.getId());
 		System.out.println("Total project hours: " + totalHours);

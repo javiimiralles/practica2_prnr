@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "project_hours")
+@Table(name = "monthly_hours")
 public class ProjectHours {
 
 	@Id
@@ -17,11 +17,11 @@ public class ProjectHours {
 	int hours;
 
 	@ManyToOne
-	@JoinColumn(name = "employee_id", nullable = false)
+	@JoinColumn(name = "fk_employee", referencedColumnName = "emp_no", nullable = false)
 	Employee employee;
 
 	@ManyToOne
-	@JoinColumn(name = "project_id", nullable = false)
+	@JoinColumn(name = "fk_project", referencedColumnName = "id", nullable = false)
 	Project project;
 	
 	public ProjectHours() {
