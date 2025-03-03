@@ -49,14 +49,18 @@ import es.uv.prnr.p2.Manager;
 public class Project  {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int id;
 	
+	@Column(name = "name", nullable = false)
 	private String name;
 	
 	@ManyToOne
 	@JoinColumn(name = "fk_department", referencedColumnName = "dept_no", nullable = false)
 	private Department department;
 	
+	@Column(name = "budget", nullable = false)
 	private BigDecimal budget;
 	
 	@Column(name = "start_date")
@@ -65,10 +69,11 @@ public class Project  {
 	@Column(name = "end_date")
 	private LocalDate endDate;
 
+	@Column(name = "area", nullable = false)
 	private String area;
 	
 	@ManyToOne
-	@JoinColumn(name = "fk_manager", referencedColumnName = "emp_no", nullable = false)
+	@JoinColumn(name = "fk_manager", nullable = false)
 	private Manager manager;
 	
 	@ManyToMany

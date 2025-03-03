@@ -73,14 +73,16 @@ public class ProjectService {
 	 * @param endId identificador final de empleados. Se asume que start id < endId
 	 */
 	public void assignTeam (Project p, int startId, int endId) {
+		p.getEmployees().clear();
+		em.getTransaction().begin();
+
 		for (int i = startId; i <= endId; i++) {
 			Employee e = em.find(Employee.class, i);
-			if (e != null) {
+			if (e != null && !p.getEmployees().contains(e)) {
 				p.addEmployee(e);
+				em.merge(p);
 			}
 		}
-		em.getTransaction().begin();
-		em.merge(p);
 		em.getTransaction().commit();
 	}
 	
