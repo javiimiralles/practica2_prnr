@@ -103,7 +103,6 @@ public class Project  {
 	public void addEmployee(Employee e) {
 		if (!team.contains(e)) {
 			team.add(e);
-			e.addProject(this);
 		}
 	}
 	
