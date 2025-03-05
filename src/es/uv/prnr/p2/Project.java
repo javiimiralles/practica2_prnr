@@ -21,25 +21,32 @@ import javax.persistence.*;
 			"ORDER BY totalHours DESC"
 )
 
-//TODO Consulta SQL para getMonthly Budget. Se recomienda encarecidamente testearla con Workbench
-//antes de incluirla aqu�
-// @NamedNativeQuery(
-//      name="Project.getMonthlyBudget",
-//      query = "",
-//      resultSetMapping = "MonthBudgetMapping"
-// )
 
-//TODO Mapeo del ResultSet para la consulta anterior
-/*@SqlResultSetMapping(
-		name="MonthBudgetMapping",
-		classes = {
-			@ConstructorResult(
-				targetClass=,
-				columns= {
-				}
-			)	
+
+@NamedNativeQuery(
+	name="Project.getMonthlyBudget",
+	query = "SELECT ph.month, ph.year, SUM(ph.hours * e.hourly_rate) as totalBudget " +
+			"FROM ProjectHours ph " +
+			"JOIN Employee e ON ph.employee_id = e.emp_no " +
+			"WHERE ph.project_id = :projectId " +
+			"GROUP BY ph.month, ph.year " +
+			"ORDER BY ph.year, ph.month",
+	resultSetMapping = "MonthBudgetMapping"
+)
+
+@SqlResultSetMapping(
+	name="MonthBudgetMapping",
+	classes = {
+		@ConstructorResult(
+			targetClass=MonthlyBudget.class,
+			columns= {
+				@ColumnResult(name="month", type=Integer.class),
+				@ColumnResult(name="year", type=Integer.class),
+				@ColumnResult(name="totalBudget", type=BigDecimal.class)
+			}
+		)
 	}
-)*/
+)
 
 @Entity
 @Table(name="project")

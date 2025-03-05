@@ -149,7 +149,9 @@ public class ProjectService {
 	 * @return una colecci�n de objetos MonthlyBudget
 	 */
 	public List<MonthlyBudget> getMonthlyBudget (int projectId){
-		return null;
+		Query query = em.createNamedQuery("Project.getMonthlyBudget");
+		query.setParameter("projectId", projectId);
+		return query.getResultList();
 	}
 	
 }
