@@ -8,20 +8,25 @@ import javax.persistence.*;
 public class ProjectHours {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	int id;
 
+	@Column(name = "month", nullable = false)
 	int month;
 	
+	@Column(name = "year", nullable = false)
 	int year;
 
+	@Column(name = "hours", nullable = false)
 	int hours;
 
 	@ManyToOne
-	@JoinColumn(name = "fk_employee", referencedColumnName = "emp_no", nullable = false)
+	@JoinColumn(name = "fk_employee", nullable = false)
 	Employee employee;
 
 	@ManyToOne
-	@JoinColumn(name = "fk_project", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "fk_project", nullable = false)
 	Project project;
 	
 	public ProjectHours() {

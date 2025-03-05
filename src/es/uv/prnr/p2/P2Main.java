@@ -2,7 +2,7 @@ package es.uv.prnr.p2;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -39,10 +39,13 @@ public class P2Main {
 		/* Ejercicio 2*/
 		
 		Department proyDepartment = service.getDepartmentById("d005");
-		Manager projectManager = service.promoteToManager(10005, 1000L);
+		System.out.println("Nombre del departamento: " + proyDepartment.getDeptName());
+		Manager projectManager = service.promoteToManager(10003, 1000L);
+		System.out.println("Manager: " + projectManager.getFirstName() + " " + projectManager.getLastName());
 		Project acmeProject = service.createBigDataProject("Persistence Layer",proyDepartment,projectManager,new BigDecimal(1500000.99));
+		System.out.println("Project: " + acmeProject.getName());
 		
-		// service.assignTeam(acmeProject,10010,10015);
+		service.assignTeam(acmeProject,10003,10007);
 
 		// int totalHours = service.assignInitialHours(acmeProject.getId());
 		// System.out.println("Total project hours: " + totalHours);
@@ -50,8 +53,6 @@ public class P2Main {
 		/*
 		 * Ejercicio 3. Prueba de consultas
 		 *
-		 * */
-		/*
 		*/
 		
 		if(service.employeeInProject(acmeProject.getId(), "Parto", "Bamford"))
@@ -71,13 +72,13 @@ public class P2Main {
 		// 	System.out.println (budget.getMonth()+"-"+budget.getYear()+" : "+budget.getAmount()+"�");
 		// }
 		
-		/* Eliminamos la informaci�n creada *
+		/* Eliminamos la informaci�n creada */
 		em.getTransaction().begin();
 		Manager m = em.merge(projectManager);
 		Project p = em.merge(acmeProject);
 		em.remove(p);
 		em.remove(m);
-		em.getTransaction().commit();*/
+		em.getTransaction().commit();
 		
 		return;
 	}
