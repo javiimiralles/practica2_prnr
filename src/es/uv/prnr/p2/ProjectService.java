@@ -117,7 +117,12 @@ public class ProjectService {
 	 * @return cierto si se encuentra asignado al proyecto
 	 */
 	public boolean employeeInProject (int projectId, String firstName, String lastName){
-		return false;
+		TypedQuery<Long> query = em.createNamedQuery("Project.findEmployee", Long.class);
+		query.setParameter("projectId", projectId);
+		query.setParameter("firstName", firstName);
+		query.setParameter("lastName", lastName);
+		Long count = query.getSingleResult();
+		return count > 0;
 	}
 	
 	/**TODO

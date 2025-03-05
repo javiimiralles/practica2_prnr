@@ -12,11 +12,12 @@ import es.uv.prnr.p2.Employee;
 import es.uv.prnr.p2.Manager;
 
 
-//TODO JPQL de Ejercicio3 employeeInProject 
-// @NamedQuery(
-// 			name="Project.findEmployee",
-// 			query = ""
-// 			)
+// TODO JPQL de Ejercicio3 employeeInProject 
+@NamedQuery(
+    name = "Project.findEmployee",
+    query = "SELECT e FROM Employee e JOIN e.project p WHERE e.firstName = :firstName AND e.lastName = :lastName"
+)
+
 
 //TODO JPQL de Ejercicio3 getTopHoursMonth
 // @NamedQuery(
