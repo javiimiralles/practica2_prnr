@@ -3,33 +3,30 @@ package es.uv.prnr.p2;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.*;
 
-import es.uv.prnr.p2.Employee;
-import es.uv.prnr.p2.Manager;
 
+@NamedQuery(
+	name="Project.findEmployee",
+	query="SELECT e FROM Project p JOIN p.team e WHERE p.id = :projectId AND e.firstName = :firstName AND e.last_name = :lastName"
+)
 
-//TODO JPQL de Ejercicio3 employeeInProject 
-// @NamedQuery(
-// 			name="Project.findEmployee",
-// 			query = ""
-// 			)
-
-//TODO JPQL de Ejercicio3 getTopHoursMonth
-// @NamedQuery(
-// 			name="Project.getTopMonths",
-// 			query=""
-// )
+@NamedQuery(
+	name="Project.getTopMonths",
+	query="SELECT ph.month, SUM(ph.hours) as totalHours " +
+			"FROM ProjectHours ph " +
+			"WHERE ph.project.id = :projectId AND ph.year = :year " +
+			"GROUP BY ph.month " +
+			"ORDER BY totalHours DESC"
+)
 
 //TODO Consulta SQL para getMonthly Budget. Se recomienda encarecidamente testearla con Workbench
 //antes de incluirla aqu�
 // @NamedNativeQuery(
-// 		name="Project.getMonthlyBudget",
-// 		query = "",
-// 		resultSetMapping = "MonthBudgetMapping"
+//      name="Project.getMonthlyBudget",
+//      query = "",
+//      resultSetMapping = "MonthBudgetMapping"
 // )
 
 //TODO Mapeo del ResultSet para la consulta anterior

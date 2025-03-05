@@ -25,7 +25,6 @@ public class ProjectService {
 	 */
 	public Department getDepartmentById (String id) {
 		return em.find(Department.class, id);
-		
 	}
 	
 	/** 
@@ -110,7 +109,7 @@ public class ProjectService {
 		return totalHours;
 	}
 	
-	/**TODO
+	/**
 	 * Busca si un empleado se encuentra asignado en el proyecto utilizando la
 	 * namedQuery Project.findEmployee
 	 * @param projectId
@@ -119,7 +118,11 @@ public class ProjectService {
 	 * @return cierto si se encuentra asignado al proyecto
 	 */
 	public boolean employeeInProject (int projectId, String firstName, String lastName){
-		return false;
+		Query query = em.createNamedQuery("Project.findEmployee");
+		query.setParameter("projectId", projectId);
+		query.setParameter("firstName", firstName);
+		query.setParameter("lastName", lastName);
+		return !query.getResultList().isEmpty();
 	}
 	
 	/**TODO
@@ -130,8 +133,12 @@ public class ProjectService {
 	 * @param rank n�mero de meses a mostrar, se asume que rank <= 12
 	 * @return una lista de objetos mes,hora ordenados de mayor a menor
 	 */
-	public List getTopHourMonths(int projectId, int year, int rank) {
-		return null;
+	public List<Object[]> getTopHourMonths(int projectId, int year, int rank) {
+		Query query = em.createNamedQuery("Project.getTopMonths");
+		query.setParameter("projectId", projectId);
+		query.setParameter("year", year);
+		query.setMaxResults(rank);
+		return query.getResultList();
 	}
 	
 	/**TODO
