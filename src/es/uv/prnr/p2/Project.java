@@ -24,25 +24,34 @@ import javax.persistence.*;
 
 
 @NamedNativeQuery(
-	name="Project.getMonthlyBudget",
-	query = "SELECT ph.month, ph.year, SUM(ph.hours * e.hourly_rate) as totalBudget " +
-			"FROM ProjectHours ph " +
-			"JOIN Employee e ON ph.employee_id = e.emp_no " +
-			"WHERE ph.project_id = :projectId " +
-			"GROUP BY ph.month, ph.year " +
-			"ORDER BY ph.year, ph.month",
-	resultSetMapping = "MonthBudgetMapping"
+    name = "Project.getMonthlyBudget",
+    query = "WITH EmployeeHourlyRate AS ( " +
+            "    SELECT s.emp_no AS employee_id, " +
+            "           s.salary / 1650.0 AS hourly_rate " +
+            "    FROM salaries s " +
+            "    WHERE s.to_date = '9999-01-01' " +
+            ") " +
+            "SELECT ph.month, " +
+            "       ph.year, " +
+            "       SUM(ph.hours * ehr.hourly_rate) AS amount " +
+            "FROM monthly_hours ph " +
+            "JOIN EmployeeHourlyRate ehr ON ph.fk_employee = ehr.employee_id " +
+            "WHERE ph.fk_project = :projectId " +
+            "GROUP BY ph.month, ph.year " +
+            "ORDER BY ph.year, ph.month",
+    resultSetMapping = "MonthBudgetMapping"
 )
+
 
 @SqlResultSetMapping(
 	name="MonthBudgetMapping",
 	classes = {
 		@ConstructorResult(
-			targetClass=MonthlyBudget.class,
-			columns= {
+			targetClass = MonthlyBudget.class,
+			columns = {
 				@ColumnResult(name="month", type=Integer.class),
 				@ColumnResult(name="year", type=Integer.class),
-				@ColumnResult(name="totalBudget", type=BigDecimal.class)
+				@ColumnResult(name="amount", type=Float.class)
 			}
 		)
 	}
